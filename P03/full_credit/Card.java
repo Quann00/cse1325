@@ -6,7 +6,7 @@ public class Card {
         this.term = term;
         this.definition = definition;
 
-        if(term == null || definition == null) throw new IllegalArgumentException("Either parameter is empty");
+        if(term == null || definition == null) throw new IllegalArgumentException("Either parameter is empty"); 
     }
     //override
     @Override
@@ -15,19 +15,16 @@ public class Card {
     }
     //Boolean true or false
     public boolean attempt (String response){
-        if (response.toUpperCase().equals(term.toUpperCase()))
-        {
+        if (response.toUpperCase().equals(term.toUpperCase())) {
             return true;
         }
-        else 
-        {
+        else {
             return false;
         }
 
     }
     // getTerm
-    public String getTerm()
-    {
+    public String getTerm() {
         return term;
 
     }

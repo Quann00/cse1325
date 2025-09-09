@@ -57,7 +57,7 @@ public class FlashCards {
         Card[] deck = loadDeck();
         //Print a nice, clear vocabulary term
         System.out.println("FLASH CARDS\n" + "=========\n" + "Vocabulary terms:");
-        for (int i = 0; i < deck.length; i++){
+        for (int i = 0; i < deck.length; i++) {
             System.out.printf("* ");
             System.out.println(deck[i].getTerm());
         }
@@ -70,21 +70,20 @@ public class FlashCards {
         System.out.printf("which term matches this definition ('q' to exit)? ");
         String response = scanner.nextLine();
 
-        if(response.equals("q"))
-        {
+        if(response.equals("q")) {
             System.exit(0);
         }
-        if(pickCard.attempt(response))
-        {
+
+        if(pickCard.attempt(response)) {
             System.out.println("Correct!");
             System.out.println(); 
         }
-        else
-        {
+        else {
             System.out.println("No, the term is " + pickCard.getTerm());
 
         }
-       } while(true);
+        
+        } while(true);
 
     }
 }
