@@ -1,0 +1,40 @@
+@startuml
+set separator none
+skinparam classAttributeIconSize 0
+hide circle
+
+class Point
+{
+    -x : double
+    -y : double
+    +Point(x : double, y : double)
+    +Point()
+    +getX() : double
+    +getY() : double
+    +equals(o : Object) : boolean <<override>>
+    +hashCode() : int <<override>>
+    +toString(): String <<override>>
+}
+
+class Polygon
+{
+    <u>+MAX_SIDES : int <<final>>
+    -numSides: int
+    -points : Point[]
+    +addPoint(point : Point)
+    +perimiter() : double
+    +toString() : String <<override>>
+    <u>-lineLength(p1 : Point, p2 : Point) : double
+}
+
+class TestPolygon
+{
+    <u>-in : Scanner
+    <u>-rand : Random <<optional>>
+    <u>+main(args : String[])
+}
+
+Point - TestPolygon
+Polygon -- TestPolygon
+
+@enduml
