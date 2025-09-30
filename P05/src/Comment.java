@@ -45,3 +45,25 @@ public Comment getInReplyTo(){
     return inReplyTo;
 }
 
+@Override
+public String toString(){
+    String total = "Comment by " + author.toString();
+    if (inReplyTo != null){
+        StringBuilder sb = new StringBuilder(total);
+        sb.append(" in reply to ").append(inReplyTo.author.toString());
+        total = sb.toString();  
+    }
+    total += "\nReplies: ";
+    if(!replies.isEmpty()){
+        for (int i = 0; i < replies.size(); i++){
+            Comment reply = replies.get(i);
+            total += " (" + i + ") " + reply.author.toString() + "\n";
+        }
+        total += "\n";
+
+    }
+    total += text + "\n";
+
+    return total;
+    }
+}
