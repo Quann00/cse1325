@@ -1,4 +1,4 @@
-import java.util.Objects;
+ import java.util.Objects;
 
 public class Person {
     private String name;
@@ -19,6 +19,3 @@ public class Person {
 public String getName(){
     return name;
     }
-
-
-
