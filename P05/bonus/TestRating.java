@@ -27,6 +27,17 @@ public class TestRating {
         System.out.println(" star 5  getstar" + rating5.getStars());
         System.out.println(" star 5  toString" + rating5.toString());
 
-        
+        //Test case 2
+        Person personTest = new Person("Charlie Brown", "cb@aol.com");
+        Comment commentTest = new Comment("GOOD JOB", personTest, null);
+        //from calss rating
+        Rating ratingComment = new Rating(1, commentTest);
+        if (ratingComment.getReview() == commentTest){
+            System.out.println("Pass");
+        }
+        else{
+            System.out.println("Fail");
+
+        }
     }
 }
