@@ -13,5 +13,16 @@ public class Tutor extends Person{
         this.bio = bio;
         this.course = course;
     }
-    
+    public int getSSN(){
+    return ssn;
+    }
+    public String getBio(){
+    return bio;
+
+    }
+
+    public Course getCourse(){
+    return course;
+
+    }
 }
