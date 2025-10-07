@@ -9,7 +9,7 @@ public class Course {
         throw new InvalidCourseException(dept);
     }
         if (number < 1000 || number > 9999){
-        throw new InvalidCourseException(dept + number);
+        throw new InvalidCourseException(dept, number);
 
     }
         this.dept = dept;
