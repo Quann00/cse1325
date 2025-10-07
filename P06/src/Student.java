@@ -13,5 +13,15 @@ public class Student extends Person {
         this.studentID = nextStudentID;
         nextStudentID++;
     }
-    
+    public void addCourse(Course course){
+    courses.add(course);
+    }
+    public Course[] getCourses(){
+    return courses.toArray(new Course[0]);
+    }
+
+@Override
+public String toString(){
+    return super.toString().replace(")", ", #" + studentID + ")");
+}
 }
