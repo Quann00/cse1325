@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 
 public class Person implements Rateable{
-    private String name;
-    private String email;
+    protected String name;
+    protected String email;
     //new stuff
     private ArrayList<Rating> ratings = new ArrayList<>();
 
@@ -45,10 +45,11 @@ public String toString(){
     }
 
  // new stuff
+ @Override
 public void addRating(Rating rating){
     ratings.add(rating);
 }
-
+@Override
 public double getAverageRating(){
     double sum = 0;
     // for stars
@@ -57,7 +58,7 @@ public double getAverageRating(){
     }
     return sum / ratings.size();
 }
-
+@Override
 public Rating[] getRatings(){
     return ratings.toArray(new Rating[0]);
 }
