@@ -1,13 +1,28 @@
 package session;
 
-
+/**
+* Models a DateRange.
+*
+* @author Quan Nguyen
+* @version 1.0
+* @since 1.0
+* @license.agreement CC BY-SA International 4.0
+*/
 
 public class DateRange {
     private String date;
     private String startTime;
     private String endTime;
 
-    
+    /**
+     * Creates a DateRange with the specified date, start time, and end time.
+     * 
+     * @param date          date The date string Cannot be null or empty
+     * @param startTime     The starting time string in HH:MM format
+     * @param endTime       The ending time string in HH:MM format
+     * @throws IllegalArgumentException     If any of the arguments are null or empty
+     * @since               1.0
+     */
 
     public DateRange (String date, String startTime, String endTime){
         if (date == null || date.isEmpty() ){
@@ -24,7 +39,14 @@ public class DateRange {
         this.endTime = endTime;
     }
 
-    
+    /**
+     * Creates a DateRange with the specified date, start time, and end time.
+     * 
+     * @param date          date The date string Cannot be null or empty
+     * @param startTime     The starting time string in HH:MM format
+     * @param duration      The duration of the time range in minutes.
+     * @since               1.0
+     */
 
     public DateRange(String date, String startTime, long duration){
         // from lecture 9
@@ -42,7 +64,12 @@ public class DateRange {
 
     }
 
-    
+    /**
+     * Calculates the duration in minutes between the startTime and endTime.
+     *
+     * @return The total duration in minutes as a long.
+     * @since               1.0
+     */
 
     public long duration(){
 
@@ -65,7 +92,12 @@ public class DateRange {
         return duration;
     }
 
-    
+    /**
+     * The format is "YYYY-MM-DD HH:MM - HH:MM (duration minutes)".
+     *
+     * @return A string describing the DateRange and its calculated duration.
+     * @since         1.0
+     */
     @Override
     public String toString(){
         return String.format("%s %s - %s (%d minutes)", date, startTime, endTime, duration());
