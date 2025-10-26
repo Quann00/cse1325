@@ -5,6 +5,7 @@ import session.Course;
 import people.Student;
 import people.Tutor;
 import session.Session;
+import menu.MenuItem;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -21,6 +22,25 @@ public class MavTutor{
     private ArrayList<Session> sessions = new ArrayList<>();
 
     public MavTutor(){
+        this.view = view;
+        this.courses = courses;
+        this.menu = new Menu(
+            
+            new Object [] {
+                "\n Selection \n"
+            },
+                //menu items
+            new MenuItem("Create New Course", this::newCourse),
+            new MenuItem("Create New Tutor", this::newTutor),
+            new MenuItem("Create New Student", this::newStudent),
+            new MenuItem("Create New Session", this::newSession),
+
+            new MenuItem("View Courses",     () -> selectView(this.courses))
+
+        );
+        // start appli run
+        this.menu.run();
+
 
     }
 
