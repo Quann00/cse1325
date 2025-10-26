@@ -69,6 +69,14 @@ public class MavTutor{
 
     private void selectView(List list){
         String head;
+        if (list == null){
+            menu.result.append("Invalid selection\n");
+            return;
+        }
+        if (list.isEmpty()){
+            menu.result.append("Invalid Items");
+            return;
+        }
         if(list == courses) {
             head = "Courses";
         } 
@@ -82,11 +90,10 @@ public class MavTutor{
             head = "Sessions";
         } 
         else {
-            head = "nothing";
+            menu.result.append("Invalid view selection\n");
+            return;
         }
-
-        menu.result.append(Menu.listToString(head, list, '-'));
-
+        menu.result.append(Menu.listToString(head, list, null));
     }
 
     private void newCourse(){
@@ -109,6 +116,7 @@ public class MavTutor{
     }
 
     private void newTutor(){
+
         String name = Menu.getString("Enter Tutor Name: ");
         String email = Menu.getString("Enter Tutor Email: ");
         String bio = Menu.getString("Enter Tutor BIO: ");
@@ -120,8 +128,7 @@ public class MavTutor{
             Course course = courses.get(index);
             Tutor newTutor = new Tutor(name, email, ssn, bio, course);
             tutors.add(newTutor);
-            menu.result.append("Tutor added");
-
+            menu.result.append("Tutor added: " + newTutor + '\n');
         }
         else {
             menu.result.append("No course, no Tutor");
@@ -144,26 +151,88 @@ public class MavTutor{
         while (true){
             Integer index = Menu.selectItemFromList("Select a course: ", courses);
 
-            if (index == null || index < 0){
+            if (index == null){
                 break;
             }
 
             Course course = courses.get(index);
             newStudent.addCourse(course);
-            menu.result.append("Course added: " + course);
+            menu.result.append("Course added: " + course +'\n');
 
         }
+
         students.add(newStudent);
-        menu.result.append("Student added ");
+        menu.result.append("Student added " + newStudent + '\n');
 
 
 
     }
 
     private void newSession(){
+        if (courses.isEmpty()){
+            menu.result.append("No course please add it first");
+            return;
+        }
+        if (tutors.isEmpty()){
+            menu.result.append("No tutor");
+            return;
+        }
+        // select courses and tutors
+        Integer coursesIndex = Menu.selectItemFromList("Select a course: ", courses);
+        //check if theres no course
+        if (coursesIndex == null || coursesIndex < 0){
+        menu.result.append("No course ");
+        return;
+        }
+        
+        Course course = courses.get(coursesIndex);
+        
+
+        // select courses and tutors
+        Integer tutorsIndex = Menu.selectItemFromList("Select a tutor: ", tutors);
+        //check if theres no course
+        if (tutorsIndex == null || tutorsIndex < 0){
+        menu.result.append("No tutors ");
+        return;
+        }
+        
+        Tutor tutor = tutors.get(tutorsIndex);
+        
+
+        //make session
+
+        Session newSession = new Session(course, tutor);
+
+        String date = Menu.getString("Enter Date: ");
+        String time = Menu.getString("Enter Time: ");
+        int duration = Menu.getInt("Enter Duration: ");
+
+        newSession.setSchedule(date, time, duration);
+
+        //loop
+        while (true){
+            Integer studentsIndex = Menu.selectItemFromList("Add a student: ", students);
+        if (studentsIndex == null || studentsIndex < 0){
+            menu.result.append("No student ");
+            break;
+            }
+        else {
+            Student student = students.get(studentsIndex);
+            newSession.addStudent(student);
+            menu.result.append("Added student: " + student + '\n');
+
+            }  
+
+        }
+
+        sessions.add(newSession);
+        menu.result.append("Added Session: " + "\n");
+
+
+
+
+
 
     }
-
-
 
 }
