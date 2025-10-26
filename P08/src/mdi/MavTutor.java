@@ -109,6 +109,24 @@ public class MavTutor{
     }
 
     private void newTutor(){
+        String name = Menu.getString("Enter Tutor Name: ");
+        String email = Menu.getString("Enter Tutor Email: ");
+        String bio = Menu.getString("Enter Tutor BIO: ");
+        int ssn = Menu.getInt("Enter Tutor SSN: ");
+
+        Integer index = Menu.selectItemFromList("Select the course: ", courses);
+
+        if (index != null){
+            Course course = courses.get(index);
+            Tutor newTutor = new Tutor(name, email, ssn, bio, course);
+            tutors.add(newTutor);
+            menu.result.append("Tutor added");
+
+        }
+        else {
+            menu.result.append("No course, no Tutor");
+        }
+
 
     }
 
