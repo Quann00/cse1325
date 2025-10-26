@@ -27,7 +27,10 @@ public class MavTutor{
             new Object [] {
                 "\n Selection \n"
             },
+            this.view = view,
+
                 //menu items
+
             new MenuItem("Create New Course", this::newCourse),
             new MenuItem("Create New Tutor", this::newTutor),
             new MenuItem("Create New Student", this::newStudent),
@@ -81,12 +84,27 @@ public class MavTutor{
         else {
             head = "nothing";
         }
-        
-        System.out.println(Menu.listToString(head, list, '-'));
+
+        menu.result.append(Menu.listToString(head, list, '-'));
 
     }
 
     private void newCourse(){
+        String dept = Menu.getString("Enter Department: ");
+        int number = Menu.getInt("Enter Number of the Course: ");
+
+        Course newCourse = new Course(dept, number);//create course
+
+        //check for course existence
+        if(courses.indexOf(newCourse) == -1){
+            courses.add(newCourse);
+            menu.result.append("Course added");
+        }
+
+        else {
+            menu.result.append("Course already there");
+
+        }
 
     }
 
