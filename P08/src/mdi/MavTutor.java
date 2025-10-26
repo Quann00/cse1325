@@ -22,8 +22,6 @@ public class MavTutor{
     private ArrayList<Session> sessions = new ArrayList<>();
 
     public MavTutor(){
-        this.view = view;
-        this.courses = courses;
         this.menu = new Menu(
             
             new Object [] {
@@ -35,7 +33,10 @@ public class MavTutor{
             new MenuItem("Create New Student", this::newStudent),
             new MenuItem("Create New Session", this::newSession),
 
-            new MenuItem("View Courses",     () -> selectView(this.courses))
+            new MenuItem("View Courses",     () -> selectView(this.courses)),
+
+            new MenuItem("Quit", this::quit)
+
 
         );
         // start appli run
@@ -45,6 +46,7 @@ public class MavTutor{
     }
 
     public static void main(String[] args){
+        new MavTutor();
 
     }
 
@@ -54,6 +56,7 @@ public class MavTutor{
     }
 
     private void quit(){
+       menu.result = null;
 
     }
 
