@@ -131,6 +131,32 @@ public class MavTutor{
     }
 
     private void newStudent(){
+        if (courses.isEmpty()){
+            menu.result.append("No course please add it first");
+            return;
+        }
+
+        String name = Menu.getString("Enter Student Name: ");
+        String email = Menu.getString("Enter Student Email: ");
+
+        Student newStudent = new Student(name, email);
+
+        while (true){
+            Integer index = Menu.selectItemFromList("Select a course: ", courses);
+
+            if (index == null || index < 0){
+                break;
+            }
+
+            Course course = courses.get(index);
+            newStudent.addCourse(course);
+            menu.result.append("Course added: " + course);
+
+        }
+        students.add(newStudent);
+        menu.result.append("Student added ");
+
+
 
     }
 
