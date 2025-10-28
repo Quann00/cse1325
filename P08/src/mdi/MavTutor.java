@@ -53,13 +53,23 @@ public class MavTutor{
     }
 
     public static void main(String[] args){
+        SplashScreen.show();
         new MavTutor();
 
     }
 
     @Override
     public String toString(){
-        return "MavTutor";
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(Menu.listToString("Courses", courses, null));
+        sb.append(Menu.listToString("Tutors", tutors, null));
+        sb.append(Menu.listToString("Students", students, null));
+        sb.append(Menu.listToString("Sessions", sessions, null));
+
+
+        
+        return sb.toString();
     }
 
     private void quit(){
