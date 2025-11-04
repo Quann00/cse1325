@@ -30,7 +30,6 @@ public class Person implements Rateable{
     public Person(Scanner in){
         this.name = in.nextLine();
         this.email = in.nextLine();
-        this.ratings = new ArrayList<>();
 
     }
 
