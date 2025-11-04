@@ -1,6 +1,7 @@
 package session;
 
 import java.util.Objects;
+
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -41,6 +42,7 @@ public class Course {
     public Course(Scanner in){
         this.dept = in.nextLine();
         this.number = in.nextInt();
+        in.nextLine();
 
     }
 
