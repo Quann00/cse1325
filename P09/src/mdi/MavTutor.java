@@ -302,8 +302,56 @@ public class MavTutor{
     }
 
     private void open(){
+        file = Menu.selectFile("Select .MavTutor file to load (-1 to abort): ", null, null);
+        if(file == null) return;
+        try (Scanner in = new Scanner(file)) {
+            
+            int sizeC = in.nextInt();
+            in.nextLine();
 
+            this.courses = new ArrayList<>();
+
+            for (int i = 0; i < sizeC; i++){
+            courses.add(new Course(in));
+            }
+            
+            int sizeSt = in.nextInt();
+            in.nextLine();
+
+            this.students = new ArrayList<>();
+
+            for (int i = 0; i < sizeSt; i++){
+            students.add(new Student(in));
+            }
+
+            int sizeT = in.nextInt();
+            in.nextLine();
+
+            this.tutors = new ArrayList<>();
+
+            for (int i = 0; i < sizeT; i++){
+            tutors.add(new Tutor(in));
+            }
+
+            int sizeS = in.nextInt();
+            in.nextLine();
+
+            this.sessions = new ArrayList<>();
+
+            for (int i = 0; i < sizeS; i++){
+            sessions.add(new Session(in));
+            }
+
+
+            menu.result.append("\nRecreated MavTutor from " + file.getName());
+        } 
+        catch (Exception e) {
+            menu.result.append("\nFailed to read: " + e);
+            newz();
+
+        }
     }
+
 
 
 }
