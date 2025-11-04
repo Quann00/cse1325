@@ -20,6 +20,7 @@ public class MavTutor{
     private Menu menu;
     private List view;
     private File file;
+    private boolean dirty;
 
     private ArrayList<Course> courses = new ArrayList<>();
     private ArrayList<Student> students = new ArrayList<>();
@@ -27,6 +28,7 @@ public class MavTutor{
     private ArrayList<Session> sessions = new ArrayList<>();
 
     public MavTutor(){
+        this.dirty = false;
         this.menu = new Menu(
             
             new Object [] {
@@ -129,6 +131,7 @@ public class MavTutor{
         //check for course existence
         if(courses.indexOf(newCourse) == -1){
             courses.add(newCourse);
+            dirty = true;
             menu.result.append("Course added");
         }
 
@@ -152,6 +155,8 @@ public class MavTutor{
             Course course = courses.get(index);
             Tutor newTutor = new Tutor(name, email, ssn, bio, course);
             tutors.add(newTutor);
+            dirty = true;
+
             menu.result.append("Tutor added: " + newTutor + '\n');
         }
         else {
@@ -181,6 +186,8 @@ public class MavTutor{
 
             Course course = courses.get(index);
             newStudent.addCourse(course);
+            dirty = true;
+
             menu.result.append("Course added: " + course +'\n');
 
         }
@@ -250,16 +257,49 @@ public class MavTutor{
         }
 
         sessions.add(newSession);
+        dirty = true;
+
         menu.result.append("Added Session: " + "\n");
 
     }
 
+    private boolean safeToDiscardData(){
+        if (dirty == false){
+            return true;
+        }
+        
+        String response = Menu.getString("Unsaved data what to do (S)ave, (D)iscard, or (A)bort: ");
+        if (response.equals("S")){
+            save();
+            return !dirty;
+        }    
+        else if(response.equals("D")){
+            dirty = false;
+            return true;
+        }
+
+        else if(response.equals("A")){
+            dirty = true;
+            return false;
+        }
+
+        else {
+            menu.result.append("Invalid response\n");
+            return safeToDiscardData();//ask again
+        }
+        
+    }
+
     private void newz(){
+        if (!safeToDiscardData()){
+            return;
+        }
         courses.clear();
         students.clear();
         tutors.clear();
         sessions.clear();
         file = null;
+        dirty = false;
 
     }
 
@@ -302,6 +342,10 @@ public class MavTutor{
     }
 
     private void open(){
+        if (!safeToDiscardData()){
+            return;
+        }
+
         file = Menu.selectFile("Select .MavTutor file to load (-1 to abort): ", null, null);
         if(file == null) return;
         try (Scanner in = new Scanner(file)) {
@@ -341,7 +385,7 @@ public class MavTutor{
             for (int i = 0; i < sizeS; i++){
             sessions.add(new Session(in));
             }
-
+            dirty = false;
 
             menu.result.append("\nRecreated MavTutor from " + file.getName());
         } 
