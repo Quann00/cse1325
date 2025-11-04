@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.io.PrintStream;
 import java.util.Scanner;
 import java.io.File;
+import java.io.IOException;
 
 
 public class MavTutor{
@@ -389,11 +390,16 @@ public class MavTutor{
 
             menu.result.append("\nRecreated MavTutor from " + file.getName());
         } 
-        catch (Exception e) {
+        catch (IOException e) {
             menu.result.append("\nFailed to read: " + e);
             newz();
 
         }
+        catch(Exception e)
+            {
+                menu.result.append(" Error: " + e);
+                newz();
+            }
     }
 
 
