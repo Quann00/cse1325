@@ -420,8 +420,17 @@ public class MavTutor{
         menu.result.append("No item to choose\n");
         return;
         }
-    }
+    
+    Rateable reviewItem = list.get(reviewIndex);
 
+    double getAverageRating = reviewItem.getAverageRating();
+    if (Double.isNaN(getAverageRating)) {
+    menu.result.append("No ratings \n");
+    } 
+    else {
+    menu.result.append(String.format("Average rating: " + getAverageRating + "\n"));
+    }
+    }
     private Person login(){
         Person Logged = null;
         String[] items = new String[] {"Tutor", "Student", "Delete"};
