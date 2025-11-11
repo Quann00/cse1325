@@ -431,6 +431,9 @@ public class MavTutor{
     menu.result.append(String.format("Average rating: " + getAverageRating + "\n"));
     }
     }
+
+    Person user = login(); //Allow the User to login
+
     private Person login(){
         Person Logged = null;
         String[] items = new String[] {"Tutor", "Student", "Delete"};
