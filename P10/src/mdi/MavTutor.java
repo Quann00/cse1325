@@ -414,10 +414,12 @@ public class MavTutor{
         if (list.isEmpty()){
         menu.result.append("No items\n");
         return;
-
-
-    }
-
+        }
+        Integer reviewIndex = Menu.selectItemFromList("Select one to review (-1 to abort): ", list, "-1");
+        if (reviewIndex < 0){
+        menu.result.append("No item to choose\n");
+        return;
+        }
     }
 
     private Person login(){
