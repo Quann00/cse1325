@@ -430,11 +430,112 @@ public class MavTutor{
     else {
     menu.result.append(String.format("Average rating: " + getAverageRating + "\n"));
     }
-    }
+    
 
     Person user = login(); //Allow the User to login
 
+    if (user != null){ //Rate and Review
+        String addRating = Menu.getString("Add a new rating? Yes or No ");
+        if (addRating.equalsIgnoreCase("Yes")){
+            int stars = Menu.getInt("Enter rating between 1 to 5 : ");
+            
+            if (stars >= 1 || stars <= 5){
+                String text = Menu.getString("Enter your comment: ");
+                Comment comment = new Comment(text, user, null); 
+                Rating newRating = new Rating(stars, comment);
+                reviewItem.addRating(newRating);
+                menu.result.append("Review added\n");
+            } 
+            else {
+                menu.result.append("Invalid rating.\n");
+
+                }  
+            }
+        }
+
+        Rating[] ratings = reviewItem.getRatings();
+        if (ratings == null || ratings.length == 0){
+            menu.result.append("No ratings\n");
+            return;
+        }
+
+        Integer rIndex = Menu.selectItemFromArray("Select rating to explore (-1 to abort): ", null, null);
+        if (rIndex == null || rIndex < 0) {
+        menu.result.append("No rating \n");
+        return;
+        }
+
+        Rating pickRating = ratings[rIndex];
+        Comment pickComment = pickRating.getReview();
+
+        if (pickComment == null){
+            menu.result.append("No Comment for this tutor rating \n");
+            return;
+        }
+
+        while (true) {
+            menu.result.append("\nComments:\n");
+            printExpandedComments(pickComment, 0);
+
+            menu.result.append("\nOptions:\n");
+            menu.result.append("1. Reply\n");
+            menu.result.append("2. Up\n");
+            menu.result.append("3. Down\n");
+            menu.result.append("4. Main Menu\n");
+
+            int option = Menu.getInt("Select 1 to 4: ");
+            
+            if (option == 1){
+                Person replyUser = login();
+                if (user == null){
+                    menu.result.append("need Login\n");
+                }
+                else {
+                    String response = Menu.getString("Enter your response: ");
+                    pickComment.addReply(response, user);
+                    menu.result.append("Reply added!\n");
+                }
+            }
+
+            if (option == 2){
+                if (pickComment.getInReplyTo() != null){
+                    pickComment.getInReplyTo();
+                }
+                else {
+                    menu.result.append("Top comment\n");
+                }
+            }
+
+            if (option == 3){
+                if (pickComment.numReplies() != 0){
+                    for (int i = 0; i < pickComment.numReplies(); i++) {
+                        menu.result.append(i + ": " + pickComment.getReply(i).getInReplyTo() + "\n");
+                        }
+                        int replyIndex = Menu.getInt("Select reply go down: ");
+                        if (replyIndex >= 0 && replyIndex < pickComment.numReplies()) {
+                            pickComment = pickComment.getReply(replyIndex);
+
+                        }
+                }
+                else {
+                    menu.result.append("No replies.\n");
+                }
+            }
+
+            if (option == 4){
+                return;
+            }
+            else{
+                menu.result.append("Invalid Choice\n");
+
+            }
+        }
+    }
+
+    
+
     private Person login(){
+
         Person Logged = null;
         String[] items = new String[] {"Tutor", "Student", "Delete"};
         Integer index = Menu.selectItemFromArray("Login : ", items);
@@ -454,8 +555,8 @@ public class MavTutor{
         } 
         else {
             menu.result.append("No tutors \n");
+            }
         }
-    }
         else if (index == 1){  // Student 
         if (!students.isEmpty()){
             Integer sIndex = Menu.selectItemFromList("Choose student: ", students);
@@ -470,19 +571,22 @@ public class MavTutor{
     
     return Logged; 
 
-
-
     }
-    
 
     private void printExpandedComments(Comment  c, int level){
+
+        printIndented(c.toString(), level);
+        System.out.println("\n");
+        for(int i=0; i<c.numReplies(); ++i) {
+            printExpandedComments(c.getReply(i), level+1);
+            } 
 
     }
 
     private void printIndented(String  multiline, int level){
-
+        String[] strings = multiline.split("\n");
+        for(String s : strings) {
+            System.out.println(" ".repeat(level) + s);
+            }
     }
-
-
-
 }
