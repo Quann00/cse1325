@@ -58,6 +58,10 @@ public class MavTutor{
             new MenuItem("saveAs", this::saveAs),
             new MenuItem("open", this::open),
 
+            new MenuItem("Review a Tutor", () -> review(this.tutors)),
+            new MenuItem("Review a Student", () -> review(this.students)),
+            new MenuItem("Review a Session", () -> review(this.sessions)),
+
 
 
 
@@ -407,6 +411,12 @@ public class MavTutor{
     }
     
     public void review(List<? extends Rateable> list){
+        if (list.isEmpty()){
+        menu.result.append("No items\n");
+        return;
+
+
+    }
 
     }
 
