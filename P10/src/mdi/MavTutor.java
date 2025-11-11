@@ -26,6 +26,8 @@ public class MavTutor{
     private List view;
     private File file;
     private boolean dirty;
+    private Person user = null;  // bonus
+
 
     private ArrayList<Course> courses = new ArrayList<>();
     private ArrayList<Student> students = new ArrayList<>();
@@ -61,6 +63,7 @@ public class MavTutor{
             new MenuItem("Review a Tutor", () -> review(this.tutors)),
             new MenuItem("Review a Student", () -> review(this.students)),
             new MenuItem("Review a Session", () -> review(this.sessions)),
+
 
 
 
@@ -486,7 +489,7 @@ public class MavTutor{
             int option = Menu.getInt("Select 1 to 4: ");
             
             if (option == 1){
-                Person replyUser = login();
+                login();
                 if (user == null){
                     menu.result.append("need Login\n");
                 }
@@ -537,7 +540,7 @@ public class MavTutor{
     private Person login(){
 
         Person Logged = null;
-        String[] items = new String[] {"Tutor", "Student", "Delete"};
+        String[] items = new String[] {"Tutor", "Student", "Delete", "Cancel Login"};
         Integer index = Menu.selectItemFromArray("Login : ", items);
         
         if (index == null || index == 2)// one of the 2
