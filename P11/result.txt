@@ -1,0 +1,133 @@
+Full Credit
+===========
+
+1. Number of cores available to my test environment (in bash use the ``nproc`` command, otherwise check your system control panel): 
+    8
+
+2. Primes range for my machine, begin to end (must run at least 45 seconds "real" / wall time with a single thread): 
+ 120_000_000
+3. Timing measured on my machine with EXACTLY the same begin and end values for each!
+
+With 1 thread:
+
+real 0m45.194s
+user 0m43.680s
+sys  0m3.461s
+
+
+With 2 threads:
+
+real 0m31.637s
+user 0m43.357s
+sys  0m2.949s
+
+
+With 3 threads:
+
+real	0m25.488s
+user	0m44.246s
+sys	    0m2.946s
+
+
+With 4 threads:
+
+real	0m21.963s
+user	0m45.413s
+sys	    0m3.083s
+
+
+With 5 threads:
+
+real	0m20.091s
+user	0m48.642s
+sys	    0m3.077s
+
+
+With 6 threads:
+
+real	0m19.867s
+user	0m54.094s
+sys	    0m3.123s
+
+
+With 7 threads:
+
+real	0m18.995s
+user	0m58.746s
+sys	    0m3.241s
+
+
+With 8 threads:
+
+real	0m18.550s
+user	1m3.663s
+sys	    0m3.320s
+
+
+With 16 threads:
+
+real	0m18.267s
+user	1m7.682s
+sys	    0m3.959s
+
+
+With 32 threads:
+
+real	0m18.261s
+user	1m9.118s
+sys	    0m3.661s
+
+
+With 64 threads:
+
+real	0m18.816s
+user	1m9.775s
+sys	    0m3.879s
+
+
+QUESTION: After threading is added, is the order of the prime numbers listed the same or does it vary? Why?
+
+Prime numbers are listed in the same order because it's in a TreeMap and TreeMaps automatically keep their keys in sorted order.
+
+
+QUESTION: Does adding more threads continue to speed up the program? Do more threads ever slow down the program slightly?  Why or why not?
+
+At first more threads speed up the program, but later near the end around 32 to 64 threads it becomes slower. This happended because 
+my machine has only 8 cores and too many threads create extra work.
+
+
+QUESTION: Does adding more threads increase the "system load" (sys), or is it constant regardless of the number of threads?  Why?
+
+Adding more threads did increase the system load at first because OS has more threads to manage
+Later when threads count is too high it ended up slowing down because of the wait.
+
+Bonus
+=====
+
+After "load balancing" your code by using a thread pool as discussed in the PDF, rerun the test with the same number of threads as your test environment has cores. For example, on a 4-core machine, run your code with 4 threads and record the time below.
+
+Number of cores: 
+
+Load Balanced
+-------------
+
+Measure the time using your Bonus solution:
+
+real	
+user	
+sys	
+
+NOT Load Balanced
+-----------------
+
+Copy the time for the same number of cores from the Full Credit section:
+
+real	
+user	
+sys	
+
+QUESTION: What difference does a load balanced thread pool make in execution time?
+
+
+
+QUESTION: Do you consider the thread pool code to be easier or more difficult to write, debug, and maintain than the hard-coded slices from Full Credit?
