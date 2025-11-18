@@ -8,7 +8,7 @@ public class Primes {
     private long maxPrime = 0;
     private Map<Long, Integer> primes = new TreeMap<>();
 
-    public boolean isPrime(long number){
+    public static boolean isPrime(long number){
         if (number < 2) return false;
 
         for (long i = 2; i <= Math.sqrt(number); i++){
@@ -32,16 +32,15 @@ public class Primes {
 
         String sum = "";
         for (var key : primes.keySet()){
-            String line = String.format("%9d" + field + " found by thread %d\n", key, primes.get(key));
-            System.out.println(line);
-            sum += line;
+            System.out.println(String.format("% " + field + "d found by thread %d\n", key, primes.get(key)));
+            
         }
         
         return sum;
     }
 
     protected void findPrimes(long begin, long end, int threadID){
-        Qlogger.log("Thread searching" + threadID + "(" + begin + "," + end + ")");
+        Qlogger.log("Thread " + threadID + " is searching "  + begin + " to " + end + "\n");
 
         for (var i = begin; i < end-1; i++){
             if (isPrime(i)){
