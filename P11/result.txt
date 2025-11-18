@@ -106,7 +106,7 @@ Bonus
 
 After "load balancing" your code by using a thread pool as discussed in the PDF, rerun the test with the same number of threads as your test environment has cores. For example, on a 4-core machine, run your code with 4 threads and record the time below.
 
-Number of cores: 
+Number of cores: 8
 
 Load Balanced
 -------------
