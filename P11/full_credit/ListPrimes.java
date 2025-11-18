@@ -1,9 +1,10 @@
 
 import qlogger.Qlogger;
 
+
 public class ListPrimes {
    public static void main(String[] args){
-    Qlogger.enabled = true;
+    Qlogger.enabled = false;
 
     if (args.length != 3){
         System.out.println("usage: java ListPrimes <begin> <end> <#threads>"); return;
@@ -12,7 +13,7 @@ public class ListPrimes {
     long begin = Long.parseLong(args[0].replaceAll("_", ""));
     long end = Long.parseLong(args[1].replaceAll("_", ""));
     int numThreads = Integer.parseInt(args[2].replaceAll("_", ""));
-    
+
 
     Primes primes = new Primes();
 
@@ -22,6 +23,9 @@ public class ListPrimes {
     else {
         primes = new ThreadedPrimes();
     }
+    /*if (numThreads < 0 ){
+        primes = new PooledPrimes();    this for bonus part
+    }*/
 
     primes.search(begin, end, numThreads);
 
